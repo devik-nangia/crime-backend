@@ -24,9 +24,10 @@ app.use("/api/reports", reportRoutes)
 app.use("/api/tips", tipRoutes)
 app.use("/api/comments", commentRoutes)
 
+app.get("/", (req, res)=>{
+  res.status(200).send("welcome to digi suraksha !")
+})
 app.listen(PORT, ()=>{
     console.log(`Server listening on port ${PORT}`)
     connectDB(MONGO_URI)
 })
-
-export default app
