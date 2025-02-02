@@ -28,7 +28,7 @@ export const getReport = async (req, res) => {
 }
 
 export const postReport = async (req, res) => {
-    const { crimeCategory, summary, description, location, radius, media, dateOfCrime, time } = req.body
+    const { crimeCategory, summary, description, location, radius, media, dateOfCrime } = req.body
     const user = req.user
     try {
         if (!crimeCategory || !summary || !description || !location) {
@@ -49,7 +49,6 @@ export const postReport = async (req, res) => {
             location,
             radius,
             dateOfCrime,
-            time,
             media
         })
 
