@@ -4,7 +4,7 @@ import {protectRoutes} from "../middleware/protectRoutes.js"
 
 const router = express.Router()
 
-router.get('/get-all-reports', getAllReports)
+router.get('/get-all-reports', protectRoutes, getAllReports)
 router.get('/:reportId', protectRoutes, getReport)
 router.post('/post-report', protectRoutes, postReport)
 
