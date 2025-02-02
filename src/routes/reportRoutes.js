@@ -6,7 +6,7 @@ const router = express.Router()
 
 router.get('/get-all-reports', protectRoutes, getAllReports)
 router.get('/:reportId', protectRoutes, getReport)
-router.post('/post-report', protectRoutes, postReport)
+router.post('/post-report', postReport)
 
 router.patch('/mark-case-closed/:reportId', protectRoutes, markCaseClosed)
 router.patch('/marked-true-increase/:reportId', protectRoutes, markedTrueIncrease)
