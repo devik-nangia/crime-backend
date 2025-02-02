@@ -69,7 +69,6 @@ export const postReport = async (req, res) => {
     }
 }
 
-
 export const markCaseClosed = async (req, res) => {
     const { isCaseClosed } = req.body
     const { reportId } = req.params

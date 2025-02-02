@@ -1,11 +1,11 @@
 import express from "express"
 import dotenv from "dotenv"
 import cookieParser from "cookie-parser"
-import authRoutes from "./routes/authRoutes.js"
-import reportRoutes from "./routes/reportRoutes.js"
-import tipRoutes from "./routes/tipRoutes.js"
-import commentRoutes from "./routes/commentRoutes.js"
-import { connectDB } from "./lib/connect.js"
+import authRoutes from "./src/routes/authRoutes.js"
+import reportRoutes from "./src/routes/reportRoutes.js"
+import tipRoutes from "./src/routes/tipRoutes.js"
+import commentRoutes from "./src/routes/commentRoutes.js"
+import { connectDB } from "./src/lib/connect.js"
 import cors from "cors"
 
 dotenv.config()
