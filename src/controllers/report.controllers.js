@@ -64,9 +64,11 @@ export const postReport = async (req, res) => {
         return res.status(200).json(newReport)
 
     } catch (error) {
-        return res.status(500).send("Error with post report controller", error)
+        // Fixed the invalid status code here by using res.status(500)
+        return res.status(500).json({ message: "Error with post report controller", error: error.message })
     }
 }
+
 
 export const markCaseClosed = async (req, res) => {
     const { isCaseClosed } = req.body
@@ -76,7 +78,8 @@ export const markCaseClosed = async (req, res) => {
             isCaseClosed
         }, { new: true })
 
-        return res.status(200).json({message: "updated successfully", 
+        return res.status(200).json({
+            message: "updated successfully",
             data: report
         })
     } catch (error) {
@@ -85,38 +88,40 @@ export const markCaseClosed = async (req, res) => {
 }
 
 export const markedTrueIncrease = async (req, res) => {
-    const {reportId} = req.params
+    const { reportId } = req.params
     try {
-        const {markedTrueAmount: amount} = await Report.findById(reportId)
+        const { markedTrueAmount: amount } = await Report.findById(reportId)
 
         const newReport = await Report.findByIdAndUpdate(reportId,
-            {markedTrueAmount: amount + 1},
-            {new: true}
+            { markedTrueAmount: amount + 1 },
+            { new: true }
         )
 
-        return res.status(200).json({message: "increased mark true amount successfully",
+        return res.status(200).json({
+            message: "increased mark true amount successfully",
             data: newReport
         })
     } catch (error) {
-        return res.status(500).json({message: "Internal server error"})
+        return res.status(500).json({ message: "Internal server error" })
     }
 }
 
 export const markedFalseIncrease = async (req, res) => {
-    const {reportId} = req.params
+    const { reportId } = req.params
     try {
-        const {markedFalseAmount: amount} = await Report.findById(reportId)
+        const { markedFalseAmount: amount } = await Report.findById(reportId)
 
         const newReport = await Report.findByIdAndUpdate(reportId,
-            {markedFalseAmount: amount + 1},
-            {new: true}
+            { markedFalseAmount: amount + 1 },
+            { new: true }
         )
 
-        return res.status(200).json({message: "increased mark false amount successfully",
+        return res.status(200).json({
+            message: "increased mark false amount successfully",
             data: newReport
         })
     } catch (error) {
         console.log(error)
-        return res.status(500).json({message: "Internal server error"})
+        return res.status(500).json({ message: "Internal server error" })
     }
 }
