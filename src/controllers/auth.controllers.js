@@ -1,9 +1,10 @@
 import bcryptjs from "bcryptjs"
 import User from "../models/user.model.js"
 import generateToken from "../lib/generateToken.js"
+import {config} from "dotenv"
 
 export const login = async (req, res) => {
-    const {id, email, password} = req.body
+    const {id, password} = req.body
     try {
         const user = await User.findById(id)
         
@@ -81,10 +82,11 @@ export const signup = async (req, res) => {
 }
 export const logout = async (req, res) => {
     try {
-        res.cookie("jwt", "", {
-            maxAge: 0,
-            sameSite: "None"
-        })
+        res.clearCookie("jwt", {
+            httpOnly: true,
+            secure: process.env.NODE_ENV !== "development",
+            sameSite: "None",
+        });
         return res.status(200).json({ message: "logged out successfully" })
     } catch (error) {
         console.log("error in logout controller:", error.message)
