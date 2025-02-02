@@ -6,12 +6,19 @@ import reportRoutes from "./routes/reportRoutes.js"
 import tipRoutes from "./routes/tipRoutes.js"
 import commentRoutes from "./routes/commentRoutes.js"
 import {connectDB} from "./lib/connect.js"
+import cors from "cors"
 
 dotenv.config()
 
 const app = express()
 const PORT = process.env.PORT
 const MONGO_URI = process.env.MONGO_URI
+
+app.use(cors({
+  origin: 'http://localhost:3000', 
+  methods: ['GET', 'POST', 'PATCH'],       
+  credentials: true,               
+}));
 
 app.use(express.json({
     limit: '50mb'
