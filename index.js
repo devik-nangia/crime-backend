@@ -20,8 +20,6 @@ app.use(express.json({
 
 app.use(cookieParser())
 
-import cors from "cors";
-
 app.use(cors({
   origin: "http://localhost:3000",
   methods: ["GET", "POST", "PATCH"], 
