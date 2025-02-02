@@ -21,7 +21,7 @@ app.use(express.json({
 app.use(cookieParser())
 
 app.use(cors({
-  origin: "https://digi-suraksha-aurora-4us0jh545-manavmehtaofficials-projects.vercel.app",
+  origin: "http://localhost:3000",
   methods: ["GET", "POST", "PATCH"], 
   credentials: true, 
   allowedHeaders: ["Content-Type", "Authorization"], 
