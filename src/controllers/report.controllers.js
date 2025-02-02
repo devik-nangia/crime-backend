@@ -38,9 +38,7 @@ export const postReport = async (req, res) => {
         let mediaUrl;
         if (media) {
             try {
-                const uploadResponse = await cloudinary.uploader.upload(media, {
-                    upload_preset: 'your-upload-preset',  
-                });
+                const uploadResponse = await cloudinary.uploader.upload(media);
                 mediaUrl = uploadResponse.secure_url;
             } catch (cloudinaryError) {
                 return res.status(500).json({ message: "Error uploading image to Cloudinary", error: cloudinaryError.message });
@@ -55,7 +53,7 @@ export const postReport = async (req, res) => {
             location,
             radius,
             dateOfCrime,
-            media: mediaUrl || media  // If Cloudinary upload is successful, use the URL; otherwise, fallback to original media
+            media: mediaUrl || null  // If Cloudinary upload is successful, use the URL; otherwise, fallback to original media
         })
 
         await newReport.save()
