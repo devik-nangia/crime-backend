@@ -20,11 +20,15 @@ app.use(express.json({
 
 app.use(cookieParser())
 
+import cors from "cors";
+
 app.use(cors({
-  origin: '*',
-  methods: ['GET', 'POST', 'PATCH'],
-  credentials: true,
+  origin: "http://localhost:3000",
+  methods: ["GET", "POST", "PATCH"], 
+  credentials: true, 
+  allowedHeaders: ["Content-Type", "Authorization"], 
 }));
+
 
 app.use("/api/auth", authRoutes)
 app.use("/api/reports", reportRoutes)
