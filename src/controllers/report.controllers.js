@@ -34,11 +34,18 @@ export const postReport = async (req, res) => {
         if (!crimeCategory || !summary || !description || !location) {
             return res.status(400).json({ message: "must fill all necessary blanks" })
         }
+
         let mediaUrl;
         if (media) {
-            // Upload base64 image to cloudinary
-            const uploadResponse = await cloudinary.uploader.upload(image);
-            mediaUrl = uploadResponse.secure_url;
+            try {
+                // Upload base64 image to cloudinary
+                const uploadResponse = await cloudinary.uploader.upload(media, {
+                    upload_preset: 'your-upload-preset',  // If you use a preset in Cloudinary, specify it here
+                });
+                mediaUrl = uploadResponse.secure_url;
+            } catch (cloudinaryError) {
+                return res.status(500).json({ message: "Error uploading image to Cloudinary", error: cloudinaryError.message });
+            }
         }
 
         const newReport = new Report({
@@ -49,15 +56,15 @@ export const postReport = async (req, res) => {
             location,
             radius,
             dateOfCrime,
-            media
+            media: mediaUrl || media  // If Cloudinary upload is successful, use the URL; otherwise, fallback to original media
         })
 
         await newReport.save()
 
         return res.status(200).json(newReport)
-        //console.log(user)
+
     } catch (error) {
-        return res.status(500).send("error with get post report controller", error)
+        return res.status(500).send("Error with post report controller", error)
     }
 }
 
