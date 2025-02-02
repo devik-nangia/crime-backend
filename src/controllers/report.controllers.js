@@ -38,9 +38,8 @@ export const postReport = async (req, res) => {
         let mediaUrl;
         if (media) {
             try {
-                // Upload base64 image to cloudinary
                 const uploadResponse = await cloudinary.uploader.upload(media, {
-                    upload_preset: 'your-upload-preset',  // If you use a preset in Cloudinary, specify it here
+                    upload_preset: 'your-upload-preset',  
                 });
                 mediaUrl = uploadResponse.secure_url;
             } catch (cloudinaryError) {
